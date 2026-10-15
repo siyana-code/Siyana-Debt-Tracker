@@ -26,7 +26,7 @@
   "main": "expo-router/entry",
   "private": true,
   "engines": {
-    "node": ">=20"
+    "node": ">=22.6"
   },
   "scripts": {
     "start": "expo start",
@@ -37,7 +37,7 @@
     "icons": "powershell -ExecutionPolicy Bypass -File ./scripts/generate-icons.ps1",
     "typecheck": "tsc --noEmit",
     "lint": "expo lint",
-    "test": "node --test \"tests/*.test.ts\""
+    "test": "node --test tests/money.test.ts tests/date.test.ts tests/debt.test.ts tests/migrations.test.ts"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.2",

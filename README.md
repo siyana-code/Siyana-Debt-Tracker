@@ -42,12 +42,12 @@ leaves the phone unless you export it yourself.
 
 ## Quick start
 
-Requires **Node.js 20+**.
+Requires **Node.js 22.6+**.
 
 ```bash
 git clone https://github.com/siyana-code/Siyana-Debt-Tracker.git
 cd Siyana-Debt-Tracker
-npm install
+npm ci
 npm start
 ```
 

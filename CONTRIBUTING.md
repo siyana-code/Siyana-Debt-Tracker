@@ -12,7 +12,7 @@ setup steps, code conventions, UI rules and pre-PR checklist.
 ```bash
 git clone https://github.com/<you>/Siyana-Debt-Tracker.git
 cd Siyana-Debt-Tracker
-npm install
+npm ci        # not `npm install` — see docs/08-contributing.md
 npm start
 ```
 

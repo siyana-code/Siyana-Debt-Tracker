@@ -21,12 +21,15 @@ jobs:
     timeout-minutes: 15
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Set up Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
-          node-version: 20
+          # 22.6 is the floor in package.json (stable TypeScript type-stripping,
+          # which lets the tests run without a build step). CI pins 24 — the
+          # version the lockfile is generated and verified with.
+          node-version: 24
           cache: npm
 
       - name: Install dependencies
@@ -44,7 +47,7 @@ jobs:
     timeout-minutes: 5
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: No telemetry or analytics dependencies
         run: |
@@ -74,9 +77,12 @@ jobs:
             exit 1
           fi
 
-      - name: No emoji in the product
+      - name: No emoji in the product UI
+        # Scoped to src/ on purpose. Documentation deliberately uses status
+        # markers (✅ 🔄 ⬜ ❌) to show delivery state; the rule is about what
+        # ships to a user, not about how the docs are written.
         run: |
-          if grep -rPn '[\x{1F300}-\x{1FAFF}\x{2600}-\x{27BF}]' src/ docs/ --include='*.ts' --include='*.tsx' --include='*.md'; then
-            echo "::error::Emoji found. The UI uses Ionicons glyphs, never emoji."
+          if grep -rPn '[\x{1F300}-\x{1FAFF}\x{2600}-\x{27BF}\x{2B00}-\x{2BFF}]' src/ --include='*.ts' --include='*.tsx'; then
+            echo "::error::Emoji found in src/. The UI uses Ionicons glyphs, never emoji."
             exit 1
           fi
