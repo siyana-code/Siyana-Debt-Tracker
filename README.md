@@ -47,7 +47,7 @@ Requires **Node.js 20+**.
 ```bash
 git clone https://github.com/siyana-code/Siyana-Debt-Tracker.git
 cd Siyana-Debt-Tracker
-npm install
+npm ci
 npm start
 ```
 
