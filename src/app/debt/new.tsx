@@ -11,6 +11,7 @@ import { createDebt } from '../../db/repositories/debts';
 import { parseAmount, minorToInput } from '../../domain/money';
 import { DEBT_CATEGORIES, DIRECTION_ICON, DIRECTION_LABEL, DIRECTION_PHRASE } from '../../domain/debt';
 import { todayISO, formatDate } from '../../utils/date';
+import { success, tap } from '../../utils/haptics';
 import { Button, Field, Sheet, SheetOption } from '../../components/ui';
 import { spacing } from '../../theme/spacing';
 import { typography } from '../../theme/typography';
@@ -74,6 +75,7 @@ export default function NewDebtScreen() {
         issuedAt,
         dueAt: hasDueDate ? dueAt : null,
       });
+      success();
       notifyDataChanged();
       router.replace('/debts');
     } catch (e) {
@@ -351,6 +353,7 @@ export default function NewDebtScreen() {
               onPress={() => {
                 setPersonId(p.id);
                 setShowPeople(false);
+                tap();
               }}
             />
           ))}

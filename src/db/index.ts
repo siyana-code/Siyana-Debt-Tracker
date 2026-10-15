@@ -125,6 +125,7 @@ const SETTINGS_DEFAULTS: Settings = {
   dueSoonDays: 3,
   defaultMethod: 'cash',
   autoBackupEnabled: false,
+  hapticsEnabled: true,
 };
 
 export async function loadSettings(): Promise<Settings> {
@@ -143,6 +144,7 @@ export async function loadSettings(): Promise<Settings> {
       map.get('autoBackupEnabled'),
       SETTINGS_DEFAULTS.autoBackupEnabled,
     ),
+    hapticsEnabled: toBool(map.get('hapticsEnabled'), SETTINGS_DEFAULTS.hapticsEnabled),
   };
 }
 

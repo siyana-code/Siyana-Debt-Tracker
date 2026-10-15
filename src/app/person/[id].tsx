@@ -9,6 +9,7 @@ import { getPerson, setArchived, deletePerson } from '../../db/repositories/peop
 import { listDebts } from '../../db/repositories/debts';
 import { formatMoney, remaining } from '../../domain/money';
 import { debtState, sortDebts } from '../../domain/debt';
+import { tap, warning } from '../../utils/haptics';
 import { Badge, Card, EmptyState, Screen, SectionHeader, SkeletonList } from '../../components/ui';
 import { DebtCard } from '../(tabs)/debts';
 import { spacing } from '../../theme/spacing';
@@ -40,6 +41,7 @@ export default function PersonDetailScreen() {
   const handleArchive = async () => {
     if (!person) return;
     await setArchived(person.id, !person.archived);
+    tap();
     notifyDataChanged();
     await load();
   };
@@ -64,6 +66,7 @@ export default function PersonDetailScreen() {
               return;
             }
             notifyDataChanged();
+            warning();
             router.replace('/people');
           },
         },

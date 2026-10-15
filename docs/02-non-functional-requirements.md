@@ -66,6 +66,7 @@ incompatible with this app's premise and will be rejected in review.
 | NFR-A11Y-06 | Progress indicators expose their value | `progressbar` role with `accessibilityValue` | ✅ |
 | NFR-A11Y-07 | Text scales with OS font settings | Layouts use flexible rows, not fixed-height text boxes | ⬜ Audit pending |
 | NFR-A11Y-08 | Reduced motion respected | Animations limited to the skeleton pulse; no decorative motion | ✅ |
+| NFR-A11Y-10 | Haptics are optional and never block an action | A user switch; every call is fire-and-forget and cannot throw into a caller | ✅ |
 | NFR-A11Y-09 | Focus order is logical | Reading order matches visual order | ⬜ Audit pending |
 
 ---

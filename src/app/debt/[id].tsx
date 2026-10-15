@@ -7,6 +7,7 @@ import { useTheme } from '../../theme/ThemeProvider';
 import { notifyDataChanged } from '../../hooks/useDebts';
 import { getDebt, setDebtStatus, deleteDebt } from '../../db/repositories/debts';
 import { listPayments, deletePayment } from '../../db/repositories/payments';
+import { success, warning } from '../../utils/haptics';
 import { formatMoney, progress, remaining } from '../../domain/money';
 import { CATEGORY_ICON, CATEGORY_LABEL, DEBT_STATE_META, DIRECTION_ICON, DIRECTION_PHRASE, debtState } from '../../domain/debt';
 import { formatDate, formatRelativeDue, formatFriendlyDate } from '../../utils/date';
@@ -55,6 +56,7 @@ export default function DebtDetailScreen() {
     if (!data) return;
     const next = data.debt.status === 'settled' ? 'open' : 'settled';
     await setDebtStatus(data.debt.id, next);
+    success();
     notifyDataChanged();
     await load();
   };
@@ -68,6 +70,7 @@ export default function DebtDetailScreen() {
         style: 'destructive',
         onPress: async () => {
           await deleteDebt(data.debt.id);
+          warning();
           notifyDataChanged();
           router.replace('/debts');
         },
@@ -83,6 +86,7 @@ export default function DebtDetailScreen() {
         style: 'destructive',
         onPress: async () => {
           await deletePayment(payment.id);
+          warning();
           notifyDataChanged();
           await load();
         },

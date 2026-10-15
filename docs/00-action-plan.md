@@ -116,7 +116,7 @@ drop, and mark it settled — entirely offline. **Met.**
 | 2.3 | Light / dark / system theme | High | ✅ |
 | 2.4 | Currency selection | High | ✅ |
 | 2.5 | Due-soon reminder window setting | Medium | ✅ |
-| 2.6 | Haptic feedback on record / settle | Medium | ⬜ |
+| 2.6 | Haptic feedback on record / settle | Medium | ✅ |
 | 2.7 | Onboarding: three-screen first-run guide | Medium | ⬜ |
 | 2.8 | Accessibility audit (screen reader, contrast) | High | ⬜ |
 | 2.9 | Automated test suite for money and state logic | High | ✅ 153 tests |

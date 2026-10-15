@@ -100,7 +100,7 @@ The runtime dependency list is deliberately short and auditable:
 | **Framework** | `expo`, `react`, `react-dom`, `react-native` |
 | **Storage** | `expo-sqlite` |
 | **Navigation** | `expo-router`, `expo-linking`, `react-native-screens`, `react-native-gesture-handler`, `react-native-safe-area-context` |
-| **Platform** | `expo-status-bar`, `expo-system-ui`, `expo-splash-screen`, `expo-constants` |
+| **Platform** | `expo-status-bar`, `expo-system-ui`, `expo-splash-screen`, `expo-constants`, `expo-haptics` |
 | **Export** | `expo-file-system`, `expo-sharing` |
 | **Icons** | `@expo/vector-icons` |
 | **Web** | `react-native-web` |

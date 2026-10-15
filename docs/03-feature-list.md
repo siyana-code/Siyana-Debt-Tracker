@@ -9,8 +9,8 @@
 
 | | Count |
 |---|---|
-| ✅ Shipped | 55 |
-| 🔄 In progress | 2 |
+| ✅ Shipped | 57 |
+| 🔄 In progress | 1 |
 | ⬜ Planned | 16 |
 | ❌ Rejected | 6 |
 
@@ -127,7 +127,8 @@
 | ✅ Quick-amount chips | Common values one tap away |
 | ✅ Quick due-date chips | Today / 7 days / 30 days |
 | ✅ Payment quick actions | "Pay all" and "Half" |
-| ✅ Haptic feedback on key actions | ⬜ Phase 2 |
+| ✅ Haptic feedback on key actions | Success on save/settle/record, warning on delete, tap on select |
+| ✅ Vibration switch in Settings | Off on web; the preference is honoured on every call |
 
 ---
 

@@ -98,4 +98,5 @@ export const DEFAULT_SETTINGS: ReadonlyArray<[string, string]> = [
   ['dueSoonDays', '3'],
   ['defaultMethod', 'cash'],
   ['autoBackupEnabled', 'false'],
+  ['hapticsEnabled', 'true'],
 ];

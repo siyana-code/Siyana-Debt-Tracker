@@ -107,6 +107,8 @@ export interface Settings {
   defaultMethod: SettlementMethod;
   /** Backup the database to a file on manual request only (v1). */
   autoBackupEnabled: boolean;
+  /** Vibrate on record, settle and delete. */
+  hapticsEnabled: boolean;
 }
 
 /** A debt joined with its person — the shape every list screen consumes. */

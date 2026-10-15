@@ -7,6 +7,7 @@ import { useTheme, useThemePreference } from '../../theme/ThemeProvider';
 import { useSettings } from '../../hooks/useDebts';
 import { CURRENCIES } from '../../domain/money';
 import { databaseStats, eraseAllData } from '../../db';
+import { hapticsSupported, setHapticsEnabled } from '../../utils/haptics';
 import { Screen, Card, SectionHeader, SegmentedControl, Sheet, SheetOption } from '../../components/ui';
 import { spacing } from '../../theme/spacing';
 import { typography } from '../../theme/typography';
@@ -76,6 +77,25 @@ export default function SettingsScreen() {
           min={1}
           max={30}
           onChange={(v) => void update({ dueSoonDays: v })}
+        />
+        <SettingRow
+          icon="phone-portrait-outline"
+          label="Vibration"
+          value={hapticsSupported ? undefined : 'Not on this device'}
+          trailing={
+            hapticsSupported ? (
+              <Switch
+                value={settings.hapticsEnabled}
+                onValueChange={(v) => {
+                  // Apply immediately so the next tap already feels right.
+                  setHapticsEnabled(v);
+                  void update({ hapticsEnabled: v });
+                }}
+                trackColor={{ true: theme.colors.primary, false: theme.colors.border }}
+                thumbColor={theme.colors.textOnPrimary}
+              />
+            ) : undefined
+          }
         />
       </Card>
 

@@ -7,6 +7,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { ThemeProvider, useTheme, useThemePreference } from '../theme/ThemeProvider';
 import { loadSettings, getDatabase } from '../db';
+import { setHapticsEnabled } from '../utils/haptics';
 
 SplashScreen.preventAutoHideAsync().catch(() => {
   /* already hidden — safe to ignore */
@@ -23,6 +24,7 @@ export default function RootLayout() {
         await getDatabase();
         const settings = await loadSettings();
         setInitialMode(settings.themeMode);
+        setHapticsEnabled(settings.hapticsEnabled);
       } catch (error) {
         // eslint-disable-next-line no-console
         console.warn('[boot] database warm-up failed', error);

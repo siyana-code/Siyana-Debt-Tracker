@@ -10,6 +10,7 @@ import { getDebt } from '../../db/repositories/debts';
 import { recordPayment } from '../../db/repositories/payments';
 import { formatMoney, minorToInput, parseAmount, remaining } from '../../domain/money';
 import { todayISO } from '../../utils/date';
+import { success, warning } from '../../utils/haptics';
 import { Button } from '../../components/ui';
 import { spacing } from '../../theme/spacing';
 import { typography } from '../../theme/typography';
@@ -65,9 +66,11 @@ export default function RecordPaymentScreen() {
         note: note.trim() || null,
         paidAt: todayISO(),
       });
+      success();
       notifyDataChanged();
       router.back();
     } catch (e) {
+      warning();
       setError(e instanceof Error ? e.message : 'Could not record the payment');
       setSaving(false);
     }

@@ -276,6 +276,29 @@ All in [`src/components/ui/`](../src/components/ui/).
 | Touch targets | 44 pt minimum, generous hit slop |
 | Motion | Only the skeleton pulse; nothing decorative |
 
+### Haptics
+
+Vibration carries meaning, not decoration, and is never the only signal — every
+action it accompanies also produces a visible result.
+
+| Moment | Feedback | Why |
+|---|---|---|
+| Payment recorded, debt saved, person created, marked settled | `success` | Something was committed |
+| Debt, payment or person deleted | `warning` | Paired with the confirmation dialog, never alone |
+| Person or category selected | `tap` / `selection` | A choice was made |
+
+Rules:
+
+- **Optional.** Settings → Vibration. Off on web, where there is no engine.
+- **Never throws.** Every call is detached and swallowed. If the platform has no
+  taptic engine, the tap still works — haptics are a nicety, never a
+  precondition for an action.
+- **Semantic vocabulary.** Callers ask for `success()` or `warning()`, never
+  `impactLight()`, so the physical pattern can change without touching every
+  call site.
+- **Never the only feedback.** A device may be silent, or the user may have
+  turned it off, so the visual and textual confirmation must stand alone.
+
 ---
 
 ## 9. Voice

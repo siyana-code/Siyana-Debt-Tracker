@@ -111,9 +111,15 @@ describe('settings seed', () => {
       'dueSoonDays',
       'defaultMethod',
       'autoBackupEnabled',
+      'hapticsEnabled',
     ]) {
       assert.ok(keys.has(expected), `missing default: ${expected}`);
     }
+  });
+
+  it('defaults haptics on, since they are part of the feel of the app', () => {
+    const haptics = DEFAULT_SETTINGS.find(([key]) => key === 'hapticsEnabled');
+    assert.equal(haptics?.[1], 'true');
   });
 
   it('seeds each key only once', () => {

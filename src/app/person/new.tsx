@@ -6,6 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { useTheme } from '../../theme/ThemeProvider';
 import { createPerson } from '../../db/repositories/people';
+import { success } from '../../utils/haptics';
 import { Button, Field } from '../../components/ui';
 import { spacing } from '../../theme/spacing';
 import { typography } from '../../theme/typography';
@@ -33,6 +34,7 @@ export default function NewPersonScreen() {
       location: location.trim() || null,
       note: note.trim() || null,
     });
+    success();
     setSaving(false);
     router.replace(`/person/${person.id}`);
   };
