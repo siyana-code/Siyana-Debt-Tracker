@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Siyana Debt Tracker — Android adaptive icon foreground.
+
+  Transparent background. The launcher masks this to a circle or squircle, so
+  the mark is kept inside the inner ~66% safe zone with generous clearance from
+  every edge. Android tints this white over the background colour set in app.json.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <circle cx="512" cy="512" r="212" fill="none" stroke="#FFFFFF" stroke-width="46"/>
+
+  <g transform="translate(-94 94) rotate(45 512 512)">
+    <g transform="translate(512 512) scale(0.78) translate(-512 -512)">
+      <path fill="#FFFFFF" d="M 502 590 L 502 478 L 468 478 L 512 434 L 556 478 L 522 478 L 522 590 Z"/>
+    </g>
+  </g>
+
+  <g transform="translate(94 -94) rotate(45 512 512)">
+    <g transform="translate(512 512) scale(0.78) translate(-512 -512)">
+      <path fill="#FFFFFF" d="M 502 434 L 502 546 L 468 546 L 512 590 L 556 546 L 522 546 L 522 434 Z"/>
+    </g>
+  </g>
+</svg>

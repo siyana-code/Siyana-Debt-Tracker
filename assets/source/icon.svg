@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Siyana Debt Tracker — launcher icon (store master).
+
+  This SVG is the editable design source. The PNG that Expo and the app stores
+  consume is rendered from the identical geometry by
+  scripts/generate-icons.ps1. Change both together, then run `npm run icons`.
+
+  Mark: a coin ring holding two opposing arrows on the anti-diagonal.
+  "Lent" leaves toward the upper right; "borrowed" enters from it.
+  Direction is carried by arrow shape, never by colour.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"   stop-color="#3484F0"/>
+      <stop offset="100%" stop-color="#2A6FD1"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1024" height="1024" fill="url(#bg)"/>
+
+  <!-- Coin ring -->
+  <circle cx="512" cy="512" r="268" fill="none" stroke="#FFFFFF" stroke-width="56"/>
+
+  <!-- Lent — arrow rising to the right -->
+  <g transform="translate(-94 94) rotate(45 512 512)">
+    <path fill="#FFFFFF" d="M 502 590 L 502 478 L 468 478 L 512 434 L 556 478 L 522 478 L 522 590 Z"/>
+  </g>
+
+  <!-- Borrowed — arrow falling to the left -->
+  <g transform="translate(94 -94) rotate(45 512 512)">
+    <path fill="#FFFFFF" d="M 502 434 L 502 546 L 468 546 L 512 590 L 556 546 L 522 546 L 522 434 Z"/>
+  </g>
+</svg>

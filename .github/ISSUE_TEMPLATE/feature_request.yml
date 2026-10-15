@@ -1,0 +1,72 @@
+---
+name: Feature request
+description: Suggest a new capability for Siyana Debt Tracker
+title: "[Feature]: "
+labels: ["enhancement", "needs triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before opening a feature request, please read the **non-goals** in
+        `docs/00-action-plan.md` and the **rejected** list in
+        `docs/03-feature-list.md`. This app is deliberately offline-only with
+        no accounts and no backend. Anything requiring a server will not be
+        accepted.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem it solves
+      description: What is painful today, without the feature.
+      placeholder: |
+        I lend money to several people and I have to remember who still owes
+        me. The notes app does not sort by due date.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+    validations:
+      required: true
+
+  - type: textarea
+    id: not-already
+    attributes:
+      label: Why is this not already covered?
+      description: |
+        If this resembles something in `docs/03-feature-list.md`, say which
+        section and why it does not satisfy your need.
+
+  - type: textarea
+    id: offline
+    attributes:
+      label: Offline behaviour
+      description: What exactly happens with no network? This is required.
+      placeholder: Everything is stored locally; the feature works fully offline.
+    validations:
+      required: true
+
+  - type: input
+    id: icon
+    attributes:
+      label: Icon
+      description: Which Ionicons glyph would represent this? The UI is icon-led.
+      placeholder: notifications-outline
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: How much does this matter to you?
+      options:
+        - I cannot use the app effectively without it
+        - It would save me real effort
+        - It would be nice
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives you have considered

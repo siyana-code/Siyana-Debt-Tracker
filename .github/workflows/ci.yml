@@ -1,0 +1,82 @@
+name: CI
+
+on:
+  push:
+    branches: [develop, main]
+  pull_request:
+    branches: [develop, main]
+
+# Never let two runs compete for the same branch.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Unit tests
+        run: npm test
+
+  privacy:
+    name: Offline & privacy guard
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: No telemetry or analytics dependencies
+        run: |
+          if grep -Ei 'sentry|analytics|telemetry|amplitude|posthog|mixpanel|firebase|segment' package.json; then
+            echo "::error::Telemetry dependency found. This app must make no network requests."
+            exit 1
+          fi
+
+      - name: No network calls in source
+        run: |
+          if grep -rniE "\bfetch\(|XMLHttpRequest|new WebSocket|axios\." src/ --include='*.ts' --include='*.tsx'; then
+            echo "::error::Network call found in src/. This app is offline-only."
+            exit 1
+          fi
+
+      - name: No device identifiers
+        run: |
+          if grep -rniE "deviceId|advertisingIdentifier|IDFA|androidId" src/ --include='*.ts' --include='*.tsx'; then
+            echo "::error::Device identifier reference found."
+            exit 1
+          fi
+
+      - name: No hard-coded colours in components
+        run: |
+          if grep -rnE '#[0-9A-Fa-f]{6}' src/app src/components --include='*.tsx' --include='*.ts'; then
+            echo "::error::Hard-coded hex colour. Use tokens from src/theme."
+            exit 1
+          fi
+
+      - name: No emoji in the product
+        run: |
+          if grep -rPn '[\x{1F300}-\x{1FAFF}\x{2600}-\x{27BF}]' src/ docs/ --include='*.ts' --include='*.tsx' --include='*.md'; then
+            echo "::error::Emoji found. The UI uses Ionicons glyphs, never emoji."
+            exit 1
+          fi

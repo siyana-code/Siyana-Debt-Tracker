@@ -1,0 +1,64 @@
+{
+  "expo": {
+    "name": "Siyana Debt Tracker",
+    "slug": "siyana-debt-tracker",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "scheme": "siyanadebts",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#F7F7F7"
+    },
+    "android": {
+      "package": "code.siyana.debts",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#3484F0",
+        "monochromeImage": "./assets/monochrome-icon.png"
+      },
+      "edgeToEdgeEnabled": true,
+      "predictiveBackGestureEnabled": true
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "code.siyana.debts",
+      "infoPlist": {
+        "UIStatusBarStyle": "UIStatusBarStyleDefault",
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro",
+      "output": "single"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash-icon.png",
+          "imageWidth": 180,
+          "resizeMode": "contain",
+          "backgroundColor": "#F7F7F7",
+          "dark": {
+            "backgroundColor": "#101418"
+          }
+        }
+      ],
+      "expo-sqlite"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "author": "Rasindu Appuhami",
+      "brand": "Siyana Code",
+      "license": "MIT"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+# Normalise line endings so the working tree does not churn on Windows.
+# * text=auto eol=lf lets git check out LF everywhere while keeping the
+#   repository's canonical form as LF (which is what GitHub renders best).
+
+* text=auto eol=lf
+
+# Files that must stay CRLF on checkout, for legacy Windows tooling.
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# Binary — never touch line endings.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.wasm binary
+*.db binary

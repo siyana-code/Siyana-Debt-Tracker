@@ -1,0 +1,40 @@
+---
+name: Documentation
+description: Report an error, ambiguity or gap in the documentation
+title: "[Docs]: "
+labels: ["documentation", "good first issue"]
+body:
+  - type: textarea
+    id: location
+    attributes:
+      label: Which document?
+      placeholder: docs/06-design-system.md
+    validations:
+      required: true
+
+  - type: textarea
+    id: issue
+    attributes:
+      label: What is wrong, unclear or missing?
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggested correction
+      description: Optional, but very welcome.
+
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Type
+      options:
+        - Incorrect or outdated
+        - Ambiguous or unclear
+        - Missing information
+        - Broken link
+        - Translation
+        - Other
+    validations:
+      required: true

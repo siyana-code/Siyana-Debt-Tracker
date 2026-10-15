@@ -1,0 +1,113 @@
+---
+name: Bug report
+description: Something in Siyana Debt Tracker is not working as documented
+title: "[Bug]: "
+labels: ["bug", "needs triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting a bug. Please fill in what you can — partial
+        reports are still useful.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What you observed, and what you expected instead.
+      placeholder: |
+        The debt list showed "settled" after a partial payment.
+        I expected it to show the remaining balance.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open the app
+        2. Go to Debts
+        3. Record a payment of 500 on a 1,000 debt
+        4. Observe the status badge
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: App version
+      description: Settings → About, or the About screen.
+      placeholder: 1.0.0
+    validations:
+      required: true
+
+  - type: input
+    id: device
+    attributes:
+      label: Device
+      placeholder: Samsung Galaxy A32
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: OS version
+      placeholder: Android 13
+    validations:
+      required: true
+
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      options:
+        - Android
+        - iOS
+        - Web
+    validations:
+      required: true
+
+  - type: dropdown
+    id: network
+    attributes:
+      label: Network state
+      description: The app is offline-only — bugs often relate to this.
+      options:
+        - Offline (airplane mode)
+        - Connected
+    validations:
+      required: true
+
+  - type: textarea
+    id: data-shape
+    attributes:
+      label: Data involved
+      description: |
+        Describe the SHAPE of the data only. Never paste real financial
+        records — use invented names and amounts.
+      placeholder: "1 person, 1 debt of 1000, 1 payment of 500"
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behaviour
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: I searched existing issues and this is not a duplicate
+          required: true
+        - label: I removed and reinstalled the app — the bug persists
+        - label: This bug blocks me from using the app
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or screenshots
+      description: Optional. `npx expo start` output, or a screen recording.
