@@ -21,10 +21,10 @@ jobs:
     timeout-minutes: 15
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Set up Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           # 22.6 is the floor in package.json (stable TypeScript type-stripping,
           # which lets the tests run without a build step). CI pins 24 — the
@@ -47,7 +47,7 @@ jobs:
     timeout-minutes: 5
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: No telemetry or analytics dependencies
         run: |
