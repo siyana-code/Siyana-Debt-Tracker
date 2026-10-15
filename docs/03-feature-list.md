@@ -9,9 +9,9 @@
 
 | | Count |
 |---|---|
-| ✅ Shipped | 48 |
-| 🔄 In progress | 5 |
-| ⬜ Planned | 17 |
+| ✅ Shipped | 55 |
+| 🔄 In progress | 2 |
+| ⬜ Planned | 16 |
 | ❌ Rejected | 6 |
 
 ---
@@ -94,17 +94,24 @@
 
 ---
 
-## 6. Data safety 🔄
+## 6. Data safety ✅
 
 | Feature | Notes |
 |---|---|
-| ✅ JSON export | Full backup, raw minor units, versioned |
+| ✅ JSON export | Full backup — people, debts **and payment history**, raw minor units, versioned |
 | ✅ CSV export | One row per debt, RFC 4180 quoting |
 | ✅ Share-sheet hand-off | OS decides where the file goes |
-| 🔄 **JSON import** | Restore on a new device — Phase 2 |
-| 🔄 **Import validation** | Reject wrong format or version — Phase 2 |
-| 🔄 **Scheduled auto-backup** | Write a snapshot before each major change — Phase 2 |
+| ✅ **JSON import** | Restores on a new device. Merge keeps what's here, Replace overwrites |
+| ✅ **Import validation** | Rejects foreign files, bad JSON and future versions before writing anything |
+| ✅ **Balance rebuilt from history** | `paid` and `status` are recomputed after restore, never trusted from the file |
+| ✅ Re-import is a no-op | Records match by stable id, so restoring twice cannot duplicate |
+| ⬜ Scheduled auto-backup | Write a snapshot before each major change |
 | ⬜ **Biometric lock** | PIN or fingerprint gate — Phase 3 |
+| ⬜ Scheduled reminders | Local notifications for due dates — Phase 3 |
+
+> **Backup works on Android and iOS only.** `expo-file-system` has no web
+> implementation, so the browser preview shows the ledger but cannot read or
+> write a file. The screen says so plainly instead of failing opaquely.
 
 ---
 

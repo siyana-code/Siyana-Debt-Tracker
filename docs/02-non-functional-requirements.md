@@ -81,8 +81,10 @@ incompatible with this app's premise and will be rejected in review.
 | NFR-REL-05 | Foreign keys enforced at runtime | `PRAGMA foreign_keys = ON` on every open | ✅ |
 | NFR-REL-06 | Money arithmetic is exact | Integer minor units; no float at rest | ✅ |
 | NFR-REL-07 | The app never crashes on an empty database | Empty states are designed states, not fallbacks | ✅ |
-| NFR-REL-08 | Recovery from a corrupt database | Restore from a JSON export | ⬜ Phase 2 |
-| NFR-REL-09 | Crash-free sessions | > 99.5% | ⬜ Phase 3 |
+| NFR-REL-08 | Recovery from a corrupt database | Restore from a JSON export | ✅ |
+| NFR-REL-09 | A malformed backup cannot corrupt the ledger | Validation runs before any write; the restore is one transaction | ✅ |
+| NFR-REL-10 | A backup cannot lie about a balance | `paid` and `status` are rebuilt from restored payments | ✅ |
+| NFR-REL-11 | Crash-free sessions | > 99.5% | ⬜ Phase 3 |
 
 ---
 
@@ -125,7 +127,7 @@ incompatible with this app's premise and will be rejected in review.
 | NFR-MNT-03 | Repositories are the only SQL | No inline SQL in components or screens | ✅ |
 | NFR-MNT-04 | Colour never hard-coded in a component | Only tokens from `src/theme/colors.ts` | ✅ |
 | NFR-MNT-05 | Schema changes go through migrations | `SCHEMA_SQL` is frozen after release | ✅ |
-| NFR-MNT-06 | Automated tests for money and state logic | `node --test`, covering `money.ts` and `debt.ts` | ⬜ Phase 2 |
+| NFR-MNT-06 | Automated tests for money and state logic | `node --test`, covering `money.ts`, `debt.ts`, `date.ts`, `migrations.ts`, `backup.ts` | ✅ 153 tests |
 | NFR-MNT-07 | Lint clean | `npm run lint` with no errors | ⬜ Configure ESLint |
 | NFR-MNT-08 | CI runs on every push to `develop` | Typecheck + lint + tests | ✅ |
 | NFR-MNT-09 | Accessibility roles set on custom controls | Not just `Pressable`, but correct `role` and `state` | ✅ |

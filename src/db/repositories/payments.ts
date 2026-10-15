@@ -34,6 +34,22 @@ export async function listPayments(debtId: ID): Promise<Payment[]> {
   ]);
 }
 
+/**
+ * Every payment across every debt, with its parent debt id attached.
+ *
+ * Used by the JSON backup. Kept separate from `listPayments` because it
+ * returns rows across table boundaries and therefore needs a join.
+ */
+export async function listAllPayments(): Promise<Array<Payment & { debtId: ID }>> {
+  const rows = await getAllAsync<Row & { debtId: ID }>(
+    `SELECT p.id, p.debt_id AS debtId, p.amount, p.currency, p.method, p.note,
+            p.paid_at AS paidAt, p.created_at AS createdAt
+       FROM payments p
+      ORDER BY p.paid_at DESC, p.created_at DESC;`,
+  );
+  return rows as unknown as Array<Payment & { debtId: ID }>;
+}
+
 export interface PaymentInput {
   debtId: ID;
   amount: number;

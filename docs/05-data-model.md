@@ -260,12 +260,56 @@ The database is the only copy. Two escape hatches:
 
 | Format | Purpose | Contents |
 |---|---|---|
-| JSON | Full restore | People and debts with **raw minor-unit amounts** and a format version |
-| CSV | Spreadsheet analysis | One row per debt with formatted amounts |
+| JSON | Full backup **and restore** | People, debts and **payments** with raw minor-unit amounts, plus a format marker and version |
+| CSV | Spreadsheet analysis | One row per debt with formatted amounts. Read-only |
 
-Filenames are `siyana-debts-<YYYY-MM-DD>.<ext>`, written to the app's cache or
-documents directory, then handed to the OS share sheet. **The app never uploads
-anything.** JSON import is Phase 2 and closes the loop.
+Filenames are `siyana-debts-<YYYY-MM-DD>.<ext>`, written to the app's cache
+directory, then handed to the OS share sheet. **The app never uploads anything.**
+
+### The backup file is a versioned API
+
+```jsonc
+{
+  "app": "Siyana Debt Tracker",
+  "format": "siyana-debts-export",  // identity check
+  "version": 2,                     // read 1..2, refuse anything newer
+  "exportedAt": "2026-10-15T…",
+  "people":   [ /* Person records */ ],
+  "debts":    [ /* Debt + a readable "outstanding" */ ],
+  "payments": [ /* added in version 2 */ ]
+}
+```
+
+Two rules govern changes to it:
+
+1. **Bump `version` and keep reading every earlier version.** A user with a v1
+   file must be able to restore it after any future update.
+2. **A file from a newer version is refused, not guessed at.** The message tells
+   them to update the app.
+
+### Restoring
+
+| Mode | Behaviour |
+|---|---|
+| **Merge** | Keeps what is on the device, adds what is new |
+| **Replace** | Wipes the ledger first, then restores — what "restore my backup" means to someone who lost the phone |
+
+Records are matched by their **stable id**, so restoring the same file twice is
+a no-op rather than a pile of duplicates.
+
+Three safety properties:
+
+- **Validate before writing.** `parseBackup` runs first and touches no
+  database, so a bad file is rejected with nothing written at all.
+- **Restore in one transaction.** A failure half-way leaves the ledger untouched.
+- **Rebuild derived values.** `paid` and `status` are recomputed from the
+  payments that were actually restored, never taken from the file. A
+  hand-edited or inconsistent backup therefore cannot produce a debt whose
+  total disagrees with its own history.
+
+> **Android and iOS only.** `expo-file-system` has no web implementation, so
+> the browser preview can display the ledger but cannot read or write a file.
+> The screen disables the controls and says so.
 
 ---
 

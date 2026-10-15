@@ -111,7 +111,7 @@ drop, and mark it settled — entirely offline. **Met.**
 
 | # | Task | Priority | Status |
 |---|---|---|---|
-| 2.1 | JSON export / import round-trip | High | ✅ Export done |
+| 2.1 | JSON export / import round-trip | High | ✅ |
 | 2.2 | CSV export for spreadsheets | High | ✅ |
 | 2.3 | Light / dark / system theme | High | ✅ |
 | 2.4 | Currency selection | High | ✅ |
@@ -119,8 +119,8 @@ drop, and mark it settled — entirely offline. **Met.**
 | 2.6 | Haptic feedback on record / settle | Medium | ⬜ |
 | 2.7 | Onboarding: three-screen first-run guide | Medium | ⬜ |
 | 2.8 | Accessibility audit (screen reader, contrast) | High | ⬜ |
-| 2.9 | Automated test suite for money and debt logic | High | ⬜ |
-| 2.10 | Import from JSON (completes the backup story) | High | ⬜ |
+| 2.9 | Automated test suite for money and state logic | High | ✅ 153 tests |
+| 2.10 | Import from JSON (completes the backup story) | High | ✅ |
 
 ---
 

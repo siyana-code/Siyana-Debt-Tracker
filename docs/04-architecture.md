@@ -111,12 +111,31 @@ project.
 | `src/components/ui/` | Reusable, theme-aware components | theme, ui |
 | `src/hooks/` | Data access and state | db, domain, types |
 | `src/db/repositories/` | All SQL and entity CRUD | db, domain, types, utils |
+| `src/db/backup.ts` | Backup **format** — pure, no database | domain, types, utils, coerce |
+| `src/db/coerce.ts` | Defensive readers for untrusted file values | types |
+| `src/db/import.ts` | Backup **restore** — the only I/O half | db, backup, coerce |
 | `src/db/index.ts` | Connection, transactions, settings | expo-sqlite |
 | `src/db/migrations.ts` | Forward-only schema steps | schema |
 | `src/domain/` | Pure business logic | types, utils |
 | `src/theme/` | Tokens and theming | — |
 | `src/types/` | Shared type definitions | — |
 | `src/utils/` | Dates, ids | — |
+
+### Why the backup is split in two
+
+The backup file is the only copy of a user's ledger, so its format deserves to
+be as carefully tested as the money arithmetic. But `parseBackup` was first
+written next to the restore code, which meant the test file could not load it —
+importing it pulled in `expo-sqlite`, a native module with no Node build.
+
+The fix was structural, not a workaround:
+
+- `backup.ts` — build and validate the file. Pure. Runs under `node --test`.
+- `coerce.ts` — readers for untrusted values, shared by both halves.
+- `import.ts` — writes to SQLite. The only part that needs a device.
+
+The same rule as `src/domain/`: anything that can be made I/O-free should be,
+because that is what makes it testable without an emulator.
 
 ---
 
@@ -258,7 +277,9 @@ what the app actually does, and the CI privacy guard keeps it that way.
 | `money.ts` | `parseAmount` → `formatMoney` round-trips; rounding never drifts; grouping is correct; remaining never goes negative |
 | `debt.ts` | `debtState` for every combination of due date and payment; `sortDebts` puts overdue first; `summarise` totals correctly per direction |
 | `date.ts` | Month-end arithmetic (`31 Jan + 1 month = 28 Feb`); local-time, not UTC |
-| `export.ts` | CSV quoting for commas, quotes and newlines; RFC 4180 conformance |
+| `backup.ts` | CSV quoting for commas, quotes and newlines; RFC 4180 conformance; backup validation |
+| `backup.ts` | The backup file is a versioned public API: format marker, version range, rejection of foreign files, and the fact that payments exist from version 2 |
+| `migrations.ts` | Versions contiguous, `SCHEMA_VERSION` in step, and no migration re-adding what `SCHEMA_SQL` already declares |
 
 Database behaviour is covered by exercising migrations against a seeded
 fixture rather than mocking SQLite.

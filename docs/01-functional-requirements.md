@@ -134,13 +134,19 @@ The backup story. If the phone is lost, the data must be recoverable.
 
 | ID | Requirement | Priority | Acceptance criteria | Status |
 |---|---|---|---|---|
-| FR-EXP-01 | All data can be exported as JSON | 🔴 | Includes people, debts with raw minor-unit amounts, and a format version | ✅ |
+| FR-EXP-01 | All data can be exported as JSON | 🔴 | Includes people, debts, **payments**, and a format version | ✅ |
 | FR-EXP-02 | Debts can be exported as CSV | 🔴 | One row per debt, formatted amounts, headers, RFC 4180 quoting | ✅ |
 | FR-EXP-03 | Exports are written to a file and handed to the share sheet | 🔴 | Filename is `siyana-debts-<YYYY-MM-DD>.<ext>` | ✅ |
 | FR-EXP-04 | The export screen explains what each format is for | 🟢 | JSON = backup; CSV = spreadsheets | ✅ |
 | FR-EXP-05 | Record counts are shown before exporting | 🟢 | So the user can sanity-check | ✅ |
-| FR-EXP-06 | A JSON export can be re-imported | 🔴 | Restores people and debts without duplication | ⬜ Phase 2 |
-| FR-EXP-07 | Import validates the file before writing | 🟡 | Rejects wrong `format` or an unsupported `version` with a clear message | ⬜ Phase 2 |
+| FR-EXP-06 | A JSON export can be re-imported | 🔴 | Restores people, debts and payments; merge adds only what is missing | ✅ |
+| FR-EXP-07 | Import validates the file before writing | 🔴 | Rejects non-JSON, foreign files and future versions with a clear message; nothing is written when rejected | ✅ |
+| FR-EXP-08 | Merge and replace are both offered, and the destructive one is confirmed | 🔴 | Replace names exactly what will be deleted | ✅ |
+| FR-EXP-09 | Restoring the same file twice does not duplicate records | 🔴 | People, debts and payments match by stable id | ✅ |
+| FR-EXP-10 | Balances are rebuilt from restored payment history | 🔴 | `paid` and `status` are recomputed, never trusted from the file | ✅ |
+| FR-EXP-11 | Records referencing something missing from the file are skipped | 🟡 | A debt whose person was not exported is not imported broken | ✅ |
+| FR-EXP-12 | A version 1 file (from before payments were exported) still restores | 🟡 | Absent `payments` is valid, not an error | ✅ |
+| FR-EXP-13 | Backup is unavailable on web, and says so | 🟢 | Controls disabled with an inline explanation | ✅ |
 
 ---
 

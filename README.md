@@ -32,6 +32,7 @@ leaves the phone unless you export it yourself.
 | **Private** | No account, no tracking, no analytics, no network permission required for core use. |
 | **Precise** | All money stored as integers in minor units — no floating-point rounding drift. |
 | **Icon-led** | Meaning carried by glyphs and direction arrows so the UI reads at a glance. |
+| **Backed up** | Export and restore a complete JSON backup. Nothing is uploaded. |
 | **Open source** | MIT. Fork it, ship it, teach with it. |
 
 ## Screens
@@ -69,6 +70,7 @@ src/
 │   └── payment/    new
 ├── components/ui/  the icon-first component kit
 ├── db/             SQLite schema, forward-only migrations, repositories
+│                   backup.ts (pure format) + import.ts (restore)
 ├── domain/         pure logic — money, debt state, summaries (no I/O)
 ├── hooks/          useDashboard · useDebts · useSettings
 ├── theme/          colour, type, spacing tokens + ThemeProvider
@@ -85,6 +87,12 @@ a payment updates the dashboard, the list and the person page at once.
 
 **Money** never touches a float at rest. `parseAmount` converts user input to
 integer minor units once, and rounding happens only at that boundary.
+
+**Backup** is a versioned file format with two halves kept apart: `backup.ts`
+builds and validates it (pure, unit-tested), `import.ts` writes it to SQLite. A
+restore validates before writing anything, runs in one transaction, and rebuilds
+each debt's balance from the payments it actually restored — so a hand-edited
+file cannot leave a total that disagrees with its own history.
 
 ## Documentation
 
@@ -120,10 +128,11 @@ Full rules: [docs/07-branch-and-release-strategy.md](docs/07-branch-and-release-
 - [x] Core ledger — people, debts, payments, offline SQLite
 - [x] Dashboard with net balance and attention strips
 - [x] Filter, search and category system
-- [x] JSON and CSV export
+- [x] JSON backup and restore, plus CSV export
 - [x] Light / dark / system themes
 - [ ] Local notifications for due dates
 - [ ] Biometric lock
+- [ ] Haptic feedback on record and settle
 - [ ] Scheduled recurring debts
 - [ ] Attach a receipt photo to a debt
 - [ ] Multi-currency totals on the dashboard
