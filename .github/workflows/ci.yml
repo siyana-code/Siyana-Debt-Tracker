@@ -74,9 +74,12 @@ jobs:
             exit 1
           fi
 
-      - name: No emoji in the product
+      - name: No emoji in the product UI
+        # Scoped to src/ on purpose. Documentation deliberately uses status
+        # markers (✅ 🔄 ⬜ ❌) to show delivery state; the rule is about what
+        # ships to a user, not about how the docs are written.
         run: |
-          if grep -rPn '[\x{1F300}-\x{1FAFF}\x{2600}-\x{27BF}]' src/ docs/ --include='*.ts' --include='*.tsx' --include='*.md'; then
-            echo "::error::Emoji found. The UI uses Ionicons glyphs, never emoji."
+          if grep -rPn '[\x{1F300}-\x{1FAFF}\x{2600}-\x{27BF}\x{2B00}-\x{2BFF}]' src/ --include='*.ts' --include='*.tsx'; then
+            echo "::error::Emoji found in src/. The UI uses Ionicons glyphs, never emoji."
             exit 1
           fi
