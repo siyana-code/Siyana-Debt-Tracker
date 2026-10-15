@@ -26,7 +26,10 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          # 22.6 is the floor in package.json (stable TypeScript type-stripping,
+          # which lets the tests run without a build step). CI pins 24 — the
+          # version the lockfile is generated and verified with.
+          node-version: 24
           cache: npm
 
       - name: Install dependencies
